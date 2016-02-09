@@ -96,7 +96,6 @@ void MarkedScrollBar::removeMark(const QString& identifier)
         if (i.next().identifier == identifier)
         {
             i.remove();
-            break;
         }
     }
 }
@@ -269,14 +268,14 @@ void MarkedScrollBar::paintEvent(QPaintEvent *event)
         p.translate(qMin(subPage.left(), addPage.left()), 0.0);
 
         sf = (addPage.width() + subPage.width() + slider.width())
-           / ((qreal) maximum() - minimum());
+           / ((qreal) pageStep() + maximum() - minimum());
     }
     else // if (orientation() == Qt::Vertical)
     {
         p.translate(0.0, qMin(subPage.top(), addPage.top()));
 
         sf = (addPage.height() + subPage.height() + slider.height())
-           / ((qreal) maximum() - minimum());
+           / ((qreal) pageStep() + maximum() - minimum());
     }
 
     foreach (markData mark, m_marks)
